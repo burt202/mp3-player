@@ -1,0 +1,23 @@
+{
+    "baseUrl": "../js/libs",
+    "name": "../start",
+    "out": "combined.js",
+    "findNestedDependencies": true,
+    "paths": {
+        "app": "../app",
+        "templates": "../../templates"
+    },
+	"shim": {
+		"underscore": {
+			"exports": "_"
+		},
+		"backbone": {
+			"deps": ["underscore", "jquery"],
+			"exports": "Backbone"
+		},
+        "marionette": {
+            "deps": ["backbone"],
+            "exports": "Backbone.Marionette"
+        }
+	}
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>MP3 Player</title>
+		<meta charset="utf-8">
+		<link href="/public/images/favicon.ico" rel="icon">
+		<link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+		<link href="/public/build/combined.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		<div id="main"></div>
+
+		{% if envType == 'development' or urlOverride %}
+			<script data-main="/public/js/start" src="/public/js/libs/require.js"></script>
+		{% else %}
+			<script src="/public/js/libs/require.js"></script>
+			<script src="/public/build/combined.js"></script>
+		{% endif %}
+
+		<script>
+
+			define('mp3s', [], function() {
+				return {{ mp3s|json_encode()|raw }};
+			});
+
+		</script>
+	</body>
+</html>

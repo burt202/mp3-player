@@ -1,0 +1,8 @@
+{
+	"require": {
+		"twig/twig": "*",
+		"silex/silex": "*",
+		"symfony/class-loader": "*",
+		"nass600/get-id3": "dev-master"
+	}
+}
