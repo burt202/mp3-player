@@ -1,12 +1,15 @@
-define([
-], function () {
+define([], function () {
 
-	return {
+    return {
         round: function (num, length) {
+            if (length === undefined) {
+                length = 0;
+            }
+
             return parseFloat(Math.round(num * Math.pow(10, length)) / Math.pow(10, length));
         },
 
-        formatMinutesAndSeconds: function (time) {
+        formatSeconds: function (time) {
             var mins = Math.floor(time / 60),
                 seconds = time % 60;
 
@@ -16,5 +19,5 @@ define([
 
             return mins + ':' + seconds;
         }
-	};
+    };
 });

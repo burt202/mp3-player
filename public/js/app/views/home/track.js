@@ -21,7 +21,7 @@ define([
         serializeData: function () {
             var baseData = Marionette.ItemView.prototype.serializeData.call(this);
             baseData.size = this.bytesToMegaBytes(baseData.size);
-            baseData.length = Helpers.formatMinutesAndSeconds(baseData.length);
+            baseData.length = Helpers.formatSeconds(baseData.length);
             return baseData;
         },
 

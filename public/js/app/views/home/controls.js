@@ -76,8 +76,8 @@ define([
         },
 
         updateTimeDisplay: function (currentTime) {
-            var timeElapsed = Helpers.formatMinutesAndSeconds(Helpers.round(currentTime, 0)),
-                trackLength = Helpers.formatMinutesAndSeconds(this.model.get('length'));
+            var timeElapsed = Helpers.formatSeconds(Helpers.round(currentTime)),
+                trackLength = Helpers.formatSeconds(this.model.get('length'));
 
             this.ui.currentTimeDisplay.html(timeElapsed + '/' + trackLength);
         },
