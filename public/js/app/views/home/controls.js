@@ -17,11 +17,15 @@ define([
             interactions: '.interactions',
             audioElement: '.player',
             pauseButton: '.pause-btn',
-            currentTimeDisplay: '.current-time-disp'
+            currentTimeDisplay: '.current-time-disp',
+            volumeSlider: '.volume-slider',
+            volumeButton: '.volume-btn'
         },
 
         events: {
-            'click @ui.pauseButton': 'pauseTrackEvent'
+            'click @ui.pauseButton': 'pauseTrackEvent',
+            'change @ui.volumeSlider': 'changeVolumeEvent',
+            'click @ui.volumeButton': 'volumeButtonEvent'
         },
 
         initialize: function () {
@@ -43,10 +47,8 @@ define([
 
         pauseTrackEvent: function () {
             if (this.model.get('state') === 'playing') {
-                this.ui.pauseButton.removeClass('fa-pause').addClass('fa-play');
                 this.pauseTrack();
-            } else if (this.player.src) {
-                this.ui.pauseButton.removeClass('fa-play').addClass('fa-pause');
+            } else {
                 this.playTrack();
             }
         },
@@ -61,11 +63,13 @@ define([
                 this.player.setAttribute('src', path);
             }
 
+            this.ui.pauseButton.removeClass('fa-play').addClass('fa-pause');
             this.model.set('state', 'playing');
             this.player.play();
         },
 
         pauseTrack: function () {
+            this.ui.pauseButton.removeClass('fa-pause').addClass('fa-play');
             this.model.set('state', 'paused');
             this.player.pause();
         },
@@ -85,6 +89,35 @@ define([
 
         round: function (num, length) {
             return parseFloat(Math.round(num * Math.pow(10, length)) / Math.pow(10, length));
+        },
+
+        changeVolumeEvent: function (e) {
+            this.changeVolume(e.target.value);
+        },
+
+        changeVolume: function (value) {
+            this.player.volume = value;
+        },
+
+        volumeButtonEvent: function () {
+            if (this.ui.volumeButton.hasClass('fa-volume-up')) {
+                this.mutePlayer();
+            } else {
+                this.unmutePlayer();
+            }
+        },
+
+        mutePlayer: function () {
+            this.playerVolume = this.player.volume;
+            this.changeVolume(0);
+            this.ui.volumeSlider.val(0);
+            this.ui.volumeButton.removeClass('fa-volume-up').addClass('fa-volume-off');
+        },
+
+        unmutePlayer: function () {
+            this.changeVolume(this.playerVolume);
+            this.ui.volumeSlider.val(this.playerVolume);
+            this.ui.volumeButton.removeClass('fa-volume-off').addClass('fa-volume-up');
         }
     });
 });
