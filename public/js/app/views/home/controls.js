@@ -2,8 +2,9 @@ define([
     'underscore',
     'marionette',
     'app/views/home/vent',
-    'text!templates/home/controls.html'
-], function (_, Marionette, Vent, tpl) {
+    'text!templates/home/controls.html',
+    'app/views/shared/helpers'
+], function (_, Marionette, Vent, tpl, Helpers) {
 
     return Marionette.ItemView.extend({
         template: _.template(tpl),
@@ -75,20 +76,10 @@ define([
         },
 
         updateTimeDisplay: function (currentTime) {
-            currentTime = this.round(currentTime, 0);
+            var timeElapsed = Helpers.formatMinutesAndSeconds(Helpers.round(currentTime, 0)),
+                trackLength = Helpers.formatMinutesAndSeconds(this.model.get('length'));
 
-            var mins = Math.floor(currentTime / 60),
-                seconds = currentTime % 60;
-
-            if (seconds < 10) {
-                seconds = '0' + seconds.toString();
-            }
-
-            this.ui.currentTimeDisplay.html(mins + ':' + seconds + '/' + this.model.get('length'));
-        },
-
-        round: function (num, length) {
-            return parseFloat(Math.round(num * Math.pow(10, length)) / Math.pow(10, length));
+            this.ui.currentTimeDisplay.html(timeElapsed + '/' + trackLength);
         },
 
         changeVolumeEvent: function (e) {

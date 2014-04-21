@@ -69,19 +69,15 @@ class Mp3MetaDataParser
 			$year = htmlspecialchars($metaData['tags']['id3v2']['year'][0]);
 		}
 
-		$length = $metaData['playtime_string'];
-		$bitrate = $metaData['bitrate'] / 1000 . 'kbps';
-		$size = round(($metaData['filesize'] / 1024) / 1024, 1) . 'mb';
-
 		return array(
 			'artist' => $artist,
 			'title' => $title,
 			'album' => $album,
 			'genre' => $genre,
 			'year' => $year,
-			'length' => $length,
-			'bitrate' => $bitrate,
-			'size' => $size,
+			'length' => round($metaData['playtime_seconds']),
+			'bitrate' => $metaData['bitrate'] / 1000,
+			'size' => $metaData['filesize'],
 			'path' => $filePath
 		);
 	}
