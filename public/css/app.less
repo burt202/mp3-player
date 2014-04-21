@@ -1,6 +1,21 @@
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, table, tr, th, td, form, label, input, select, textarea, img, ul, ol, li, pre, audio, video {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    .disable-text-selection();
+}
+
 body {
     font-family: 'Montserrat', serif;
     font-size: 13px;
     background: #171D22;
     color: #F5F5F5;
+}
+
+.disable-text-selection {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
