@@ -18,15 +18,18 @@ define([
             interactions: '.interactions',
             audioElement: '.player',
             pauseButton: '.pause-btn',
+            seekSlider: '.seek-slider',
             currentTimeDisplay: '.current-time-disp',
             volumeSlider: '.volume-slider',
             volumeButton: '.volume-btn'
         },
 
         events: {
-            'click @ui.pauseButton': 'pauseTrackEvent',
-            'change @ui.volumeSlider': 'changeVolumeEvent',
-            'click @ui.volumeButton': 'volumeButtonEvent'
+            'click @ui.pauseButton': 'pauseTrackClickEvent',
+            'change @ui.volumeSlider': 'changeVolumeChangeEvent',
+            'click @ui.volumeButton': 'volumeButtonClickEvent',
+            'mousedown @ui.seekSlider': 'seekSliderMouseDownEvent',
+            'mouseup @ui.seekSlider': 'seekSliderMouseUpEvent'
         },
 
         initialize: function () {
@@ -38,6 +41,7 @@ define([
 
             this.player.addEventListener('timeupdate', function () {
                 this.updateTimeDisplay(this.player.currentTime);
+                this.updateSeekSlider(this.player.currentTime);
             }.bind(this));
         },
 
@@ -46,7 +50,7 @@ define([
             this.playTrack(track.get('path'));
         },
 
-        pauseTrackEvent: function () {
+        pauseTrackClickEvent: function () {
             if (this.model.get('state') === 'playing') {
                 this.pauseTrack();
             } else {
@@ -61,6 +65,7 @@ define([
             }
 
             if (path) {
+                this.ui.seekSlider.attr('max', this.model.get('length'));
                 this.player.setAttribute('src', path);
             }
 
@@ -82,7 +87,7 @@ define([
             this.ui.currentTimeDisplay.html(timeElapsed + '/' + trackLength);
         },
 
-        changeVolumeEvent: function (e) {
+        changeVolumeChangeEvent: function (e) {
             this.changeVolume(e.target.value);
         },
 
@@ -90,7 +95,7 @@ define([
             this.player.volume = value;
         },
 
-        volumeButtonEvent: function () {
+        volumeButtonClickEvent: function () {
             if (this.ui.volumeButton.hasClass('fa-volume-up')) {
                 this.mutePlayer();
             } else {
@@ -109,6 +114,23 @@ define([
             this.changeVolume(this.playerVolume);
             this.ui.volumeSlider.val(this.playerVolume);
             this.ui.volumeButton.removeClass('fa-volume-off').addClass('fa-volume-up');
+        },
+
+        updateSeekSlider: function (currentTime) {
+            if (this.seekPressed) {
+                return;
+            }
+
+            this.ui.seekSlider.val(Helpers.round(currentTime));
+        },
+
+        seekSliderMouseDownEvent: function () {
+            this.seekPressed = true;
+        },
+
+        seekSliderMouseUpEvent: function (e) {
+            this.player.currentTime = e.target.value;
+            this.seekPressed = false;
         }
     });
 });
