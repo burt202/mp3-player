@@ -93,10 +93,18 @@ define([
 
         changeVolume: function (value) {
             this.player.volume = value;
+
+            if (parseFloat(value) === 0) {
+                this.ui.volumeButton.removeClass('fa-volume-up fa-volume-down').addClass('fa-volume-off');
+            } else if (parseFloat(value) < 0.5) {
+                this.ui.volumeButton.removeClass('fa-volume-off fa-volume-up').addClass('fa-volume-down');
+            } else {
+                this.ui.volumeButton.removeClass('fa-volume-off fa-volume-down').addClass('fa-volume-up');
+            }
         },
 
         volumeButtonClickEvent: function () {
-            if (this.ui.volumeButton.hasClass('fa-volume-up')) {
+            if (this.ui.volumeButton.hasClass('fa-volume-up') || this.ui.volumeButton.hasClass('fa-volume-down')) {
                 this.mutePlayer();
             } else {
                 this.unmutePlayer();
@@ -107,13 +115,11 @@ define([
             this.playerVolume = this.player.volume;
             this.changeVolume(0);
             this.ui.volumeSlider.val(0);
-            this.ui.volumeButton.removeClass('fa-volume-up').addClass('fa-volume-off');
         },
 
         unmutePlayer: function () {
             this.changeVolume(this.playerVolume);
             this.ui.volumeSlider.val(this.playerVolume);
-            this.ui.volumeButton.removeClass('fa-volume-off').addClass('fa-volume-up');
         },
 
         updateSeekSlider: function (currentTime) {
