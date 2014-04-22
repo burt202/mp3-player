@@ -14,6 +14,11 @@ define([
 
         attributes: {
             id: 'tracks-cont'
-        }
+        },
+
+        emptyView: Marionette.ItemView.extend({
+            tagName: 'tr',
+            template: _.template('<td colspan="8" class="empty">No files</td>')
+        })
     });
 });
