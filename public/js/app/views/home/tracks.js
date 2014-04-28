@@ -27,17 +27,13 @@ define([
         },
 
         findNext: function (track, shuffleMode) {
-            var nextTrack;
+            var nextTrack,
+                currentIndex = this.collection.indexOf(track);
 
             if (shuffleMode) {
-/*                if (this.fileOrder.length === 1) { return; }
-
-                while (nextIndex === this.getCurrentPlayingIndex(this.playingId))
-                {
-                    nextIndex = _.random(0, (this.fileOrder.length - 1));
-                }*/
+                nextTrack = this.getRandomModelInCollection(currentIndex);
             } else {
-                nextTrack = this.getNextModelInCollection(track);
+                nextTrack = this.getNextModelInCollection(currentIndex);
             }
 
             if (nextTrack) {
@@ -45,12 +41,25 @@ define([
             }
         },
 
-        getNextModelInCollection: function (track) {
-            var index = this.collection.indexOf(track);
+        getNextModelInCollection: function (index) {
             if ((index + 1) === this.collection.length) {
                 return null;
             }
             return this.collection.at(index + 1);
+        },
+
+        getRandomModelInCollection: function (index) {
+            var nextIndex = index;
+
+            if (this.collection.length === 1) {
+                return null;
+            }
+
+            while (nextIndex === index) {
+                nextIndex = _.random(0, (this.collection.length - 1));
+            }
+
+            return this.collection.at(nextIndex);
         }
     });
 });
