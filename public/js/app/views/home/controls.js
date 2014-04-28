@@ -18,6 +18,7 @@ define([
             interactions: '.interactions',
             audioElement: '.player',
             pauseButton: '.pause-btn',
+            nextButton: '.next-btn',
             seekSlider: '.seek-slider',
             currentTimeDisplay: '.current-time-disp',
             volumeSlider: '.volume-slider',
@@ -26,6 +27,7 @@ define([
 
         events: {
             'click @ui.pauseButton': 'pauseTrackClickEvent',
+            'click @ui.nextButton': 'nextTrackClickEvent',
             'change @ui.volumeSlider': 'changeVolumeChangeEvent',
             'click @ui.volumeButton': 'volumeButtonClickEvent',
             'mousedown @ui.seekSlider': 'seekSliderMouseDownEvent',
@@ -33,7 +35,8 @@ define([
         },
 
         initialize: function () {
-            this.listenTo(Vent, 'track:dbl-clicked', this.playTrackEvent);
+            this.listenTo(Vent, 'track:play', this.playTrackEvent);
+            this.shuffleMode = false;
         },
 
         onRender: function () {
@@ -43,6 +46,10 @@ define([
                 this.updateTimeDisplay(this.player.currentTime);
                 this.updateSeekSlider(this.player.currentTime);
             }.bind(this));
+
+            this.player.addEventListener('ended', function () {
+                this.nextTrack();
+            }.bind(this));
         },
 
         playTrackEvent: function (track) {
@@ -51,7 +58,7 @@ define([
         },
 
         pauseTrackClickEvent: function () {
-            if (this.model.get('state') === 'playing') {
+            if (this.playState === 'playing') {
                 this.pauseTrack();
             } else {
                 this.playTrack();
@@ -59,7 +66,7 @@ define([
         },
 
         playTrack: function (path) {
-            if (!this.model.get('state')) {
+            if (!this.playState) {
                 this.ui.heading.hide();
                 this.ui.interactions.fadeIn();
             }
@@ -70,13 +77,13 @@ define([
             }
 
             this.ui.pauseButton.removeClass('fa-play').addClass('fa-pause');
-            this.model.set('state', 'playing');
+            this.playState = 'playing';
             this.player.play();
         },
 
         pauseTrack: function () {
             this.ui.pauseButton.removeClass('fa-pause').addClass('fa-play');
-            this.model.set('state', 'paused');
+            this.playState = 'paused';
             this.player.pause();
         },
 
@@ -137,6 +144,14 @@ define([
         seekSliderMouseUpEvent: function (e) {
             this.player.currentTime = e.target.value;
             this.seekPressed = false;
+        },
+
+        nextTrackClickEvent: function () {
+            this.nextTrack();
+        },
+
+        nextTrack: function () {
+            Vent.trigger('track:find-next', this.model, this.shuffleMode);
         }
     });
 });

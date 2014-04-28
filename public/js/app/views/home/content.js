@@ -22,7 +22,7 @@ define([
 
         onShow: function () {
             var tracks = new Backbone.Collection(mp3s),
-                control = new Backbone.Model({state: null}),
+                control = new Backbone.Model(),
                 controlsView = new ControlsView({model: control}),
                 tracksView = new TracksView({collection: tracks});
 

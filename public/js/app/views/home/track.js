@@ -15,7 +15,7 @@ define([
         },
 
         doubleClickedEvent: function () {
-            Vent.trigger('track:dbl-clicked', this.model);
+            Vent.trigger('track:play', this.model);
         },
 
         serializeData: function () {
