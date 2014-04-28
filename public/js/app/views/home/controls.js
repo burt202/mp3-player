@@ -19,6 +19,7 @@ define([
             audioElement: '.player',
             pauseButton: '.pause-btn',
             nextButton: '.next-btn',
+            shuffleButton: '.shuffle-btn',
             seekSlider: '.seek-slider',
             currentTimeDisplay: '.current-time-disp',
             volumeSlider: '.volume-slider',
@@ -28,6 +29,7 @@ define([
         events: {
             'click @ui.pauseButton': 'pauseTrackClickEvent',
             'click @ui.nextButton': 'nextTrackClickEvent',
+            'click @ui.shuffleButton': 'shuffleClickEvent',
             'change @ui.volumeSlider': 'changeVolumeChangeEvent',
             'click @ui.volumeButton': 'volumeButtonClickEvent',
             'mousedown @ui.seekSlider': 'seekSliderMouseDownEvent',
@@ -152,6 +154,20 @@ define([
 
         nextTrack: function () {
             Vent.trigger('track:find-next', this.model, this.shuffleMode);
+        },
+
+        shuffleClickEvent: function () {
+            this.shuffleClick();
+        },
+
+        shuffleClick: function () {
+            if (this.ui.shuffleButton.hasClass('active')) {
+                this.ui.shuffleButton.removeClass('active');
+                this.shuffleMode = false;
+            } else {
+                this.ui.shuffleButton.addClass('active');
+                this.shuffleMode = true;
+            }
         }
     });
 });
