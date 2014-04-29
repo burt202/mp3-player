@@ -14,6 +14,10 @@ define([
             'dblclick': 'doubleClickedEvent'
         },
 
+        initialize: function () {
+            this.listenTo(Vent, 'track:playing', this.trackPlaying);
+        },
+
         doubleClickedEvent: function () {
             Vent.trigger('track:play', this.model);
         },
@@ -27,6 +31,14 @@ define([
 
         bytesToMegaBytes: function (size) {
             return Helpers.round((size / 1024) / 1024, 1);
+        },
+
+        trackPlaying: function (track) {
+            if (track === this.model) {
+                this.$el.addClass('active');
+            } else if (this.$el.hasClass('active')) {
+                this.$el.removeClass('active');
+            }
         }
     });
 });

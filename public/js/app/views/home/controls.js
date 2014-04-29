@@ -81,6 +81,8 @@ define([
             this.ui.pauseButton.removeClass('fa-play').addClass('fa-pause');
             this.playState = 'playing';
             this.player.play();
+
+            Vent.trigger('track:playing', this.model);
         },
 
         pauseTrack: function () {
