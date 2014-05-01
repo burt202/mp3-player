@@ -5,8 +5,9 @@ define([
     'mp3s',
     'text!templates/home/content.html',
     'app/views/home/controls',
-    'app/views/home/tracks'
-], function (_, Backbone, Marionette, mp3s, tpl, ControlsView, TracksView) {
+    'app/views/home/tracks',
+    'app/views/home/status-bar'
+], function (_, Backbone, Marionette, mp3s, tpl, ControlsView, TracksView, StatusBarView) {
 
     return Marionette.Layout.extend({
         template: _.template(tpl),
@@ -17,17 +18,20 @@ define([
 
         regions: {
             controls: '#controls',
-            tracks: '#tracks'
+            tracks: '#tracks',
+            statusBar: '#status-bar'
         },
 
         onShow: function () {
             var tracks = new Backbone.Collection(mp3s),
                 control = new Backbone.Model(),
                 controlsView = new ControlsView({model: control}),
-                tracksView = new TracksView({collection: tracks});
+                tracksView = new TracksView({collection: tracks}),
+                statusBarView = new StatusBarView({tracks: tracks});
 
             this.controls.show(controlsView);
             this.tracks.show(tracksView);
+            this.statusBar.show(statusBarView);
         }
     });
 });
