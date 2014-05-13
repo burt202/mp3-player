@@ -89,6 +89,8 @@ define([
             this.ui.pauseButton.removeClass('fa-pause').addClass('fa-play');
             this.playState = 'paused';
             this.player.pause();
+
+            Vent.trigger('track:paused', this.model);
         },
 
         updateTimeDisplay: function (currentTime) {

@@ -1,8 +1,9 @@
 define([
     'underscore',
     'marionette',
+    'app/views/home/vent',
     'text!templates/home/status-bar.html'
-], function (_, Marionette, tpl) {
+], function (_, Marionette, Vent, tpl) {
 
     return Marionette.ItemView.extend({
         template: _.template(tpl),
@@ -11,8 +12,15 @@ define([
             id: 'status-bar-cont'
         },
 
+        ui: {
+            display: '.state'
+        },
+
         initialize: function (options) {
             this.tracks = options.tracks;
+
+            this.listenTo(Vent, 'track:playing', this.trackPlaying);
+            this.listenTo(Vent, 'track:paused', this.trackPaused);
         },
 
         serializeData: function () {
@@ -86,6 +94,18 @@ define([
             } else {
                 return bytes + 'b';
             }
+        },
+
+        trackPlaying: function (model) {
+            this.updateDisplay(model, 'Playing');
+        },
+
+        trackPaused: function (model) {
+            this.updateDisplay(model, 'Paused');
+        },
+
+        updateDisplay: function (model, mode) {
+            this.ui.display.html(mode + ': ' + model.get('artist') + ' - ' + model.get('title'));
         }
     });
 });
