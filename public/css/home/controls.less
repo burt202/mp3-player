@@ -2,15 +2,24 @@
     height: 40px;
     background: #121212;
     margin-bottom: 5px;
-    padding: 0 10px;
     width: 100%;
 
     .heading {
         line-height: 40px;
+        margin-left: 10px;
     }
 
     .interactions {
         display: none;
+
+        .left-controls {
+            float: left;
+            margin-left: 10px;
+        }
+
+        .right-controls {
+            float: right;
+        }
 
         i.fa {
             float: left;
@@ -33,7 +42,7 @@
 
         .seek-slider {
             float: left;
-            width: 800px;
+            width: ~"calc(100% - 365px)";
             height: 22px;
             margin-top: 9px;
         }

@@ -27,3 +27,17 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+
+.clearfix {
+    *zoom: 1;
+
+    &:before, &:after {
+        display: table;
+        content: "";
+        line-height: 0;
+    }
+
+    &:after {
+        clear: both;
+    }
+}

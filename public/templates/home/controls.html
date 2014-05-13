@@ -1,13 +1,19 @@
 <h1 class="heading">Welcome</h1>
 
-<div class="interactions">
-    <i class="fa fa-pause fa-3 pause-btn"></i>
-    <i class="fa fa-forward fa-3 next-btn"></i>
-    <i class="fa fa-random fa-3 shuffle-btn"></i>
+<div class="interactions clearfix">
+    <div class="left-controls">
+        <i class="fa fa-pause fa-3 pause-btn"></i>
+        <i class="fa fa-forward fa-3 next-btn"></i>
+        <i class="fa fa-random fa-3 shuffle-btn"></i>
+    </div>
+
     <input type="range" class="seek-slider" min="0" max="0" step="1" value="0" />
-    <span class="current-time-disp"></span>
-    <input type="range" class="volume-slider" min="0.0" max="1.0" step="0.1" value="1.0" />
-    <i class="fa fa-volume-up fa-3 volume-btn"></i>
+
+    <div class="right-controls">
+        <span class="current-time-disp"></span>
+        <input type="range" class="volume-slider" min="0.0" max="1.0" step="0.1" value="1.0" />
+        <i class="fa fa-volume-up fa-3 volume-btn"></i>
+    </div>
 
     <audio class="player">
         <source src="" type="audio/mpeg" />
