@@ -1,5 +1,5 @@
 require([
-	'./config'
+	'config'
 ], function (config) {
 	require.config(config);
 	require([

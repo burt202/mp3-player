@@ -5,7 +5,9 @@
     "findNestedDependencies": true,
     "paths": {
         "app": "../app",
-        "templates": "../../templates"
+        "templates": "../../templates",
+        "mp3s": "empty:",
+        "config": "empty:"
     },
 	"shim": {
 		"underscore": {
