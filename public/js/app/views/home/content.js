@@ -27,7 +27,7 @@ define([
                 control = new Backbone.Model(),
                 controlsView = new ControlsView({model: control}),
                 tracksView = new TracksView({collection: tracks}),
-                statusBarView = new StatusBarView({tracks: tracks});
+                statusBarView = new StatusBarView({tracks: mp3s});
 
             this.controls.show(controlsView);
             this.tracks.show(tracksView);
