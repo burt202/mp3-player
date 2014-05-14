@@ -16,11 +16,21 @@ define([
             display: '.state'
         },
 
+        events: {
+            'dblclick': 'doubleClickedEvent'
+        },
+
         initialize: function (options) {
             this.tracks = options.tracks;
 
             this.listenTo(Vent, 'track:playing', this.trackPlaying);
             this.listenTo(Vent, 'track:paused', this.trackPaused);
+        },
+
+        doubleClickedEvent: function () {
+            if (this.trackToLocate) {
+                Vent.trigger('track:locate', this.trackToLocate);
+            }
         },
 
         serializeData: function () {
@@ -97,6 +107,7 @@ define([
         },
 
         trackPlaying: function (model) {
+            this.trackToLocate = model;
             this.updateDisplay(model, 'Playing');
         },
 

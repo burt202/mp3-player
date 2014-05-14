@@ -24,6 +24,7 @@ define([
 
         initialize: function () {
             this.listenTo(Vent, 'track:find-next', this.findNext);
+            this.listenTo(Vent, 'track:locate', this.locateTrack);
         },
 
         findNext: function (track, shuffleMode) {
@@ -60,6 +61,14 @@ define([
             }
 
             return this.collection.at(nextIndex);
+        },
+
+        locateTrack: function (track) {
+            var trackRow = this.$('#track' + track.id),
+                rowHeight = trackRow.outerHeight(),
+                index = trackRow.index();
+
+            this.$el.closest('#tracks').scrollTop(index * rowHeight);
         }
     });
 });

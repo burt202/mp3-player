@@ -14,6 +14,12 @@ define([
             'dblclick': 'doubleClickedEvent'
         },
 
+        attributes: function () {
+            return {
+                id: 'track' + this.model.id
+            };
+        },
+
         initialize: function () {
             this.listenTo(Vent, 'track:playing', this.trackPlaying);
         },
