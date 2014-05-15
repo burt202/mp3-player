@@ -19,7 +19,7 @@ define([
         },
 
         ui: {
-            tableHeading: 'tr'
+            tableHeading: 'th'
         },
 
         events: {
@@ -38,6 +38,12 @@ define([
         initialize: function () {
             this.listenTo(Vent, 'track:find-next', this.findNext);
             this.listenTo(Vent, 'track:locate', this.locateTrack);
+        },
+
+        serializeData: function () {
+            return {
+                sortColumn: this.collection.sortAttribute
+            };
         },
 
         findNext: function (track, shuffleMode) {
@@ -85,11 +91,11 @@ define([
         },
 
         sortByEvent: function (e) {
-            var column = $(e.target).data('sort');
-            this.sortBy(column);
+            var headerCell = $(e.target);
+            this.sortBy(headerCell, headerCell.data('sort'));
         },
 
-        sortBy: function (column) {
+        sortBy: function (el, column) {
             var newSort = column,
                 currentSort = this.collection.sortAttribute;
 
@@ -99,6 +105,8 @@ define([
                 this.collection.sortDirection = 1;
             }
 
+            this.ui.tableHeading.removeClass('active');
+            el.addClass('active');
             this.collection.sortTracks(newSort);
         }
     });

@@ -1,13 +1,13 @@
 <thead>
 	<tr>
-		<th data-sort="artist">Artist</th>
-		<th data-sort="title">Title</th>
-		<th data-sort="album">Album</th>
-		<th data-sort="genre">Genre</th>
-		<th data-sort="year">Year</th>
-		<th data-sort="length">Length</th>
-		<th data-sort="size">Size</th>
-		<th data-sort="bitrate">Bitrate</th>
+		<th data-sort="artist" <%= (sortColumn == 'artist') ? 'class="active"' : '' %>>Artist</th>
+		<th data-sort="title" <%= (sortColumn == 'title') ? 'class="active"' : '' %>>Title</th>
+		<th data-sort="album" <%= (sortColumn == 'album') ? 'class="active"' : '' %>>Album</th>
+		<th data-sort="genre" <%= (sortColumn == 'genre') ? 'class="active"' : '' %>>Genre</th>
+		<th data-sort="year" <%= (sortColumn == 'year') ? 'class="active"' : '' %>>Year</th>
+		<th data-sort="length" <%= (sortColumn == 'length') ? 'class="active"' : '' %>>Length</th>
+		<th data-sort="size" <%= (sortColumn == 'size') ? 'class="active"' : '' %>>Size</th>
+		<th data-sort="bitrate" <%= (sortColumn == 'bitrate') ? 'class="active"' : '' %>>Bitrate</th>
 	</tr>
 </thead>
 <tbody></tbody>
