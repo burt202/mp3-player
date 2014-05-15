@@ -1,0 +1,24 @@
+<div class="filter artist-filter">
+	<select id="artist-filter-select" name="artist-filter-select" size="6">
+		<option value="[All]" selected="">[All]</option>
+		<% _.each(artists, function (i) { %>
+			<option value="<%= i %>"><%= i %></option>
+		<% }); %>
+	</select>
+</div>
+<div class="filter album-filter">
+	<select id="album-filter-select" name="album-filter-select" size="6">
+		<option value="[All]" selected="">[All]</option>
+		<% _.each(albums, function (i) { %>
+			<option value="<%= i %>"><%= i %></option>
+		<% }); %>
+	</select>
+</div>
+<div class="filter genre-filter">
+	<select id="genre-filter-select" name="genre-filter-select" size="6">
+		<option value="[All]" selected="">[All]</option>
+		<% _.each(genres, function (i) { %>
+			<option value="<%= i %>"><%= i %></option>
+		<% }); %>
+	</select>
+</div>
