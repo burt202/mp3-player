@@ -2,10 +2,11 @@ define([
     'underscore',
     'backbone',
     'marionette',
+    'jquery',
     'app/views/home/vent',
     'text!templates/home/tracks.html',
     'app/views/home/track'
-], function (_, Backbone, Marionette, Vent, tpl, TrackView) {
+], function (_, Backbone, Marionette, $, Vent, tpl, TrackView) {
 
     return Marionette.CompositeView.extend({
         template: _.template(tpl),
@@ -15,6 +16,18 @@ define([
 
         attributes: {
             id: 'tracks-cont'
+        },
+
+        ui: {
+            tableHeading: 'tr'
+        },
+
+        events: {
+            'click @ui.tableHeading': 'sortByEvent'
+        },
+
+        collectionEvents: {
+            'sort': 'render'
         },
 
         emptyView: Marionette.ItemView.extend({
@@ -69,6 +82,24 @@ define([
                 index = trackRow.index();
 
             this.$el.closest('#tracks').scrollTop(index * rowHeight);
+        },
+
+        sortByEvent: function (e) {
+            var column = $(e.target).data('sort');
+            this.sortBy(column);
+        },
+
+        sortBy: function (column) {
+            var newSort = column,
+                currentSort = this.collection.sortAttribute;
+
+            if (newSort === currentSort) {
+                this.collection.sortDirection *= -1;
+            } else {
+                this.collection.sortDirection = 1;
+            }
+
+            this.collection.sortTracks(newSort);
         }
     });
 });

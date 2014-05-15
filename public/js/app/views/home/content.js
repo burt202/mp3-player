@@ -6,8 +6,9 @@ define([
     'text!templates/home/content.html',
     'app/views/home/controls',
     'app/views/home/tracks',
-    'app/views/home/status-bar'
-], function (_, Backbone, Marionette, mp3s, tpl, ControlsView, TracksView, StatusBarView) {
+    'app/views/home/status-bar',
+    'app/collections/tracks'
+], function (_, Backbone, Marionette, mp3s, tpl, ControlsView, TracksView, StatusBarView, TrackCollection) {
 
     return Marionette.Layout.extend({
         template: _.template(tpl),
@@ -23,7 +24,7 @@ define([
         },
 
         onShow: function () {
-            var tracks = new Backbone.Collection(mp3s),
+            var tracks = new TrackCollection(mp3s),
                 control = new Backbone.Model(),
                 controlsView = new ControlsView({model: control}),
                 tracksView = new TracksView({collection: tracks}),
