@@ -59,9 +59,16 @@
     "white"         : false,
 
     "predef": [
-        "console",
-        "require",
         "define",
-        "__dirname"
+        "require",
+        "confirm",
+        "module",
+        "__dirname",
+        "it",
+        "describe",
+        "expect",
+        "spyOn",
+        "global",
+        "beforeEach"
     ]
 }
