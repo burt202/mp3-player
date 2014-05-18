@@ -2,8 +2,9 @@ define([
     'underscore',
     'marionette',
     'app/views/home/vent',
-    'text!templates/home/status-bar.html'
-], function (_, Marionette, Vent, tpl) {
+    'text!templates/home/status-bar.html',
+    'app/views/shared/helpers'
+], function (_, Marionette, Vent, tpl, Helpers) {
 
     return Marionette.ItemView.extend({
         template: _.template(tpl),
@@ -61,52 +62,20 @@ define([
                 size += track.size;
             });
 
-            return this.formatSize(size, 2);
+            return Helpers.formatSize(size, 2);
         },
 
         formatTime: function (time) {
-            var weeks = Math.floor(time / 604800),
-                days = Math.floor(time / 86400),
-                hours = Math.floor((time % 86400) / 3600),
-                minutes = Math.floor(((time % 86400) % 3600) / 60),
-                seconds = ((time % 86400) % 3600) % 60,
-                units = [],
+            var units = Helpers.secondsToTime(time),
                 formatted = '';
 
-            units.push({value: weeks, text: 'w'});
-            units.push({value: days, text: 'd'});
-            units.push({value: hours, text: 'h'});
-            units.push({value: minutes, text: 'm'});
-            units.push({value: seconds, text: 's'});
-
-            _.each(units, function (unit) {
-                if (unit.value > 0) {
-                    formatted += unit.value + unit.text;
+            _.each(units, function (value, key) {
+                if (value > 0) {
+                    formatted += value + key.charAt(0);
                 }
             });
 
             return formatted;
-        },
-
-        formatSize: function (bytes, precision) {
-            var kilobyte = 1024,
-                megabyte = kilobyte * 1024,
-                gigabyte = megabyte * 1024,
-                terabyte = gigabyte * 1024;
-
-            if ((bytes >= 0) && (bytes < kilobyte)) {
-                return bytes + 'b';
-            } else if ((bytes >= kilobyte) && (bytes < megabyte)) {
-                return (bytes / kilobyte).toFixed(precision) + 'kb';
-            } else if ((bytes >= megabyte) && (bytes < gigabyte)) {
-                return (bytes / megabyte).toFixed(precision) + 'mb';
-            } else if ((bytes >= gigabyte) && (bytes < terabyte)) {
-                return (bytes / gigabyte).toFixed(precision) + 'gb';
-            } else if (bytes >= terabyte) {
-                return (bytes / terabyte).toFixed(precision) + 'tb';
-            } else {
-                return bytes + 'b';
-            }
         },
 
         trackPlaying: function (model) {

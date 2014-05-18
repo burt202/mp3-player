@@ -94,10 +94,12 @@ define([
         },
 
         updateTimeDisplay: function (currentTime) {
-            var timeElapsed = Helpers.formatSeconds(Helpers.round(currentTime)),
-                trackLength = Helpers.formatSeconds(this.model.get('length'));
+            var timeElapsed = Helpers.secondsToTime(Helpers.round(currentTime)),
+                trackLength = Helpers.secondsToTime(this.model.get('length')),
+                timeElapsedFormatted = Helpers.formatMinutesAndSeconds(timeElapsed.minutes, timeElapsed.seconds),
+                trackLengthFormatted = Helpers.formatMinutesAndSeconds(trackLength.minutes, trackLength.seconds);
 
-            this.ui.currentTimeDisplay.html(timeElapsed + '/' + trackLength);
+            this.ui.currentTimeDisplay.html(timeElapsedFormatted + '/' + trackLengthFormatted);
         },
 
         changeVolumeChangeEvent: function (e) {

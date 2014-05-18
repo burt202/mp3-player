@@ -29,14 +29,13 @@ define([
         },
 
         serializeData: function () {
-            var baseData = Marionette.ItemView.prototype.serializeData.call(this);
-            baseData.size = this.bytesToMegaBytes(baseData.size);
-            baseData.length = Helpers.formatSeconds(baseData.length);
-            return baseData;
-        },
+            var baseData = Marionette.ItemView.prototype.serializeData.call(this),
+                time = Helpers.secondsToTime(baseData.length);
 
-        bytesToMegaBytes: function (size) {
-            return Helpers.round((size / 1024) / 1024, 1);
+            baseData.size = Helpers.formatSize(baseData.size, 1);
+            baseData.length = Helpers.formatMinutesAndSeconds(time.minutes, time.seconds);
+
+            return baseData;
         },
 
         trackPlaying: function (track) {
