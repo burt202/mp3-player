@@ -38,6 +38,9 @@ define([
         initialize: function () {
             this.listenTo(Vent, 'track:find-next', this.findNext);
             this.listenTo(Vent, 'track:locate', this.locateTrack);
+            this.listenTo(Vent, 'filter:tracks', this.filterTracks);
+
+            this.originalCollection = this.collection.toJSON();
         },
 
         serializeData: function () {
@@ -108,6 +111,78 @@ define([
             this.ui.tableHeading.removeClass('active');
             el.addClass('active');
             this.collection.sortTracks(newSort);
+        },
+
+        filterTracks: function (artist, album, genre, type) {
+            switch (type) {
+            case 'artist':
+                this.filterByArtist(artist);
+                break;
+            case 'album':
+                this.filterByAlbum(album, artist);
+                break;
+            case 'genre':
+                this.filterByGenre(genre);
+                break;
+            }
+        },
+
+        filterByArtist: function (artist) {
+            var filterArtist = _.escape(artist),
+                filteredFiles;
+
+            if (filterArtist === '[All]') {
+                this.resetTrackListing();
+            } else {
+                filteredFiles = _.where(this.originalCollection, {artist: filterArtist});
+                this.collection.reset(filteredFiles);
+
+                Vent.trigger('filter:populate', 'album', _.uniq(_.pluck(filteredFiles, 'album')));
+                Vent.trigger('filter:reset', 'genre');
+            }
+        },
+
+        filterByAlbum: function (album, artist) {
+            var filterAlbum = _.escape(album),
+                filterArtist = _.escape(artist),
+                filteredFiles;
+
+            if (filterArtist === '[All]' && filterAlbum === '[All]') {
+                this.resetTrackListing();
+                return;
+            }
+
+            if (filterArtist === '[All]') {
+                filteredFiles = _.where(this.originalCollection, {album: filterAlbum});
+                this.collection.reset(filteredFiles);
+            } else if (filterAlbum === '[All]') {
+                filteredFiles = _.where(this.originalCollection, {artist: filterArtist});
+                this.collection.reset(filteredFiles);
+            } else {
+                filteredFiles = _.where(this.originalCollection, {artist: filterArtist, album: filterAlbum});
+                this.collection.reset(filteredFiles);
+            }
+
+            Vent.trigger('filter:reset', 'genre');
+        },
+
+        filterByGenre: function (genre) {
+            var filterGenre = _.escape(genre),
+                filteredFiles;
+
+            if (filterGenre === '[All]') {
+                this.resetTrackListing();
+            } else {
+                filteredFiles = _.where(this.originalCollection, {genre: filterGenre});
+                this.collection.reset(filteredFiles);
+            }
+
+            Vent.trigger('filter:reset', 'artist');
+            Vent.trigger('filter:reset', 'album');
+        },
+
+        resetTrackListing: function () {
+            this.collection.reset(this.originalCollection);
         }
     });
 });
