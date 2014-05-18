@@ -13,7 +13,8 @@ define([
         },
 
         ui: {
-            display: '.state'
+            display: '.state',
+            info: '.info'
         },
 
         events: {
@@ -25,6 +26,7 @@ define([
 
             this.listenTo(Vent, 'track:playing', this.trackPlaying);
             this.listenTo(Vent, 'track:paused', this.trackPaused);
+            this.listenTo(Vent, 'collection:reset', this.updateInfo);
         },
 
         doubleClickedEvent: function () {
@@ -36,25 +38,26 @@ define([
         serializeData: function () {
             return {
                 total: this.tracks.length,
-                playtime: this.getTotalPlaytime(),
-                size: this.getTotalSize()
+                playtime: this.getTotalPlaytime(this.tracks),
+                size: this.getTotalSize(this.tracks),
+                grammar: this.tracks.length === 1 ? 'Track' : 'Tracks'
             };
         },
 
-        getTotalPlaytime: function () {
+        getTotalPlaytime: function (tracks) {
             var playtime = 0;
 
-            _.each(this.tracks, function (track) {
+            _.each(tracks, function (track) {
                 playtime += track.length;
             });
 
             return this.formatTime(playtime);
         },
 
-        getTotalSize: function () {
+        getTotalSize: function (tracks) {
             var size = 0;
 
-            _.each(this.tracks, function (track) {
+            _.each(tracks, function (track) {
                 size += track.size;
             });
 
@@ -117,6 +120,14 @@ define([
 
         updateDisplay: function (model, mode) {
             this.ui.display.html(mode + ': ' + model.get('artist') + ' - ' + model.get('title'));
+        },
+
+        updateInfo: function (collection) {
+            var playtime = this.getTotalPlaytime(collection),
+                size = this.getTotalSize(collection),
+                grammar = collection.length === 1 ? 'Track' : 'Tracks';
+
+            this.ui.info.html(collection.length + ' ' + grammar + ' | Total Playtime: ' + playtime + ' | Total Size: ' + size);
         }
     });
 });

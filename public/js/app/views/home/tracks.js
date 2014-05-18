@@ -27,7 +27,8 @@ define([
         },
 
         collectionEvents: {
-            'sort': 'render'
+            'sort': 'render',
+            'reset': 'collectionResetEvent'
         },
 
         emptyView: Marionette.ItemView.extend({
@@ -183,6 +184,10 @@ define([
 
         resetTrackListing: function () {
             this.collection.reset(this.originalCollection);
+        },
+
+        collectionResetEvent: function (collection) {
+            Vent.trigger('collection:reset', collection.toJSON());
         }
     });
 });
