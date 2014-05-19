@@ -41,8 +41,6 @@ define([], function () {
                 return (bytes / megabyte).toFixed(precision) + 'mb';
             } else if ((bytes >= gigabyte) && (bytes < terabyte)) {
                 return (bytes / gigabyte).toFixed(precision) + 'gb';
-            } else if (bytes >= terabyte) {
-                return (bytes / terabyte).toFixed(precision) + 'tb';
             } else {
                 return bytes + 'b';
             }

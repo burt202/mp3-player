@@ -31,4 +31,44 @@ describe('Helpers', function () {
 			expect(result).toEqual('5:05');
 		});
 	});
+
+	describe('Seconds To Time', function () {
+		it('should convert seconds to time object', function () {
+			var result = Helpers.secondsToTime(691800);
+
+			expect(result).toEqual({
+				weeks: 1,
+				days: 8,
+				hours: 0,
+				minutes: 10,
+				seconds: 0
+			});
+		});
+	});
+
+	describe('Format Size', function () {
+		it('should format bytes', function () {
+			var result = Helpers.formatSize(823);
+
+			expect(result).toEqual('823b');
+		});
+
+		it('should format kilobytes', function () {
+			var result = Helpers.formatSize(2048);
+
+			expect(result).toEqual('2kb');
+		});
+
+		it('should format megabytes', function () {
+			var result = Helpers.formatSize(2621440, 1);
+
+			expect(result).toEqual('2.5mb');
+		});
+
+		it('should format gigabytes', function () {
+			var result = Helpers.formatSize(6174015488, 2);
+
+			expect(result).toEqual('5.75gb');
+		});
+	});
 });

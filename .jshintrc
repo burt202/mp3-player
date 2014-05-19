@@ -64,6 +64,7 @@
         "confirm",
         "module",
         "__dirname",
+        "jasmine",
         "it",
         "describe",
         "expect",
