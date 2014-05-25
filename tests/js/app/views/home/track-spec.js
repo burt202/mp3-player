@@ -27,11 +27,10 @@ describe('Track', function () {
 				model: model
 			});
 
-			expect(track.listenTo).toHaveBeenCalledWith(jasmine.any(Object), 'track:playing', track.trackPlaying);
+			expect(track.listenTo).toHaveBeenCalledWith(Vent, 'track:playing', track.trackPlaying);
 		});
 
 		it('should have the correct attributes', function() {
-			spyOn(Track.prototype, 'listenTo');
 			var track = new Track({
 				model: model
 			});
@@ -56,7 +55,7 @@ describe('Track', function () {
 	});
 
 	describe('Template Data', function() {
-		it('should trigger track:play event', function() {
+		it('should return correct data', function() {
 			var track = new Track({
 				model: model
 			});
