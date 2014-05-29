@@ -23,7 +23,9 @@ gulp.task('unbuild', function () {
 
 gulp.task('jasmine', function() {
 	gulp.src('tests/**')
-        .pipe(jasmine());
+		.pipe(jasmine({
+			verbose: true
+		}));
 });
 
 gulp.task('jshint', function() {
