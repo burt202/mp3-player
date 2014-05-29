@@ -43,7 +43,10 @@ define([
 
         onRender: function () {
             this.player = this.ui.audioElement.get(0);
+            this.setupPlayerEvents();
+        },
 
+        setupPlayerEvents: function () {
             this.player.addEventListener('timeupdate', function () {
                 this.updateTimeDisplay(this.player.currentTime);
                 this.updateSeekSlider(this.player.currentTime);
@@ -93,15 +96,6 @@ define([
             Vent.trigger('track:paused', this.model);
         },
 
-        updateTimeDisplay: function (currentTime) {
-            var timeElapsed = Helpers.secondsToTime(Helpers.round(currentTime)),
-                trackLength = Helpers.secondsToTime(this.model.get('length')),
-                timeElapsedFormatted = Helpers.formatMinutesAndSeconds(timeElapsed.minutes, timeElapsed.seconds),
-                trackLengthFormatted = Helpers.formatMinutesAndSeconds(trackLength.minutes, trackLength.seconds);
-
-            this.ui.currentTimeDisplay.html(timeElapsedFormatted + '/' + trackLengthFormatted);
-        },
-
         changeVolumeChangeEvent: function (e) {
             this.changeVolume(e.target.value);
         },
@@ -135,6 +129,15 @@ define([
         unmutePlayer: function () {
             this.changeVolume(this.playerVolume);
             this.ui.volumeSlider.val(this.playerVolume);
+        },
+
+        updateTimeDisplay: function (currentTime) {
+            var timeElapsed = Helpers.secondsToTime(Helpers.round(currentTime)),
+                trackLength = Helpers.secondsToTime(this.model.get('length')),
+                timeElapsedFormatted = Helpers.formatMinutesAndSeconds(timeElapsed.minutes, timeElapsed.seconds),
+                trackLengthFormatted = Helpers.formatMinutesAndSeconds(trackLength.minutes, trackLength.seconds);
+
+            this.ui.currentTimeDisplay.html(timeElapsedFormatted + '/' + trackLengthFormatted);
         },
 
         updateSeekSlider: function (currentTime) {
