@@ -75,7 +75,7 @@ define([
         getRandomModelInCollection: function (index) {
             var nextIndex = index;
 
-            if (this.collection.length === 1) {
+            if (this.collection.length <= 1) {
                 return null;
             }
 
@@ -86,12 +86,17 @@ define([
             return this.collection.at(nextIndex);
         },
 
+        getTrackRowById: function (id) {
+            return this.$('#track' + id);
+        },
+
         locateTrack: function (track) {
-            var trackRow = this.$('#track' + track.id),
+            var trackRow = this.getTrackRowById(track.id),
+                tracksCont = this.$el.closest('#tracks'),
                 rowHeight = trackRow.outerHeight(),
                 index = trackRow.index();
 
-            this.$el.closest('#tracks').scrollTop(index * rowHeight);
+            tracksCont.scrollTop(index * rowHeight);
         },
 
         sortByEvent: function (e) {
