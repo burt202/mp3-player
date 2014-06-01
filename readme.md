@@ -14,4 +14,4 @@ A basic MP3 player that uses the HTML5 audio element underneath, with custom con
 ### Tests
 
 * run `gulp jasmine`
-* 97 tests, 166 assertions
+* 97 tests, 167 assertions

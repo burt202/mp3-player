@@ -139,6 +139,7 @@ define([
 
             if (filterArtist === '[All]') {
                 this.resetTrackListing();
+                Vent.trigger('filter:populate', 'album', _.uniq(_.pluck(this.originalCollection, 'album')));
             } else {
                 filteredFiles = _.where(this.originalCollection, {artist: filterArtist});
                 this.collection.reset(filteredFiles);

@@ -281,9 +281,16 @@ describe('Tracks', function () {
                 });
 
                 spyOn(tracks, 'resetTrackListing');
+                spyOn(Vent, 'trigger');
                 tracks.filterByArtist('[All]');
 
                 expect(tracks.resetTrackListing).toHaveBeenCalled();
+                expect(Vent.trigger).toHaveBeenCalledWith('filter:populate', 'album', [
+                    'From Beale Street To Oblivion',
+                    'The Elephant Riders',
+                    'Ten',
+                    'Futile'
+                ]);
             });
 
             it('should reset collection with filtered list and trigger relevant events', function() {
