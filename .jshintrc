@@ -89,6 +89,10 @@
         "it",
         "describe",
         "before",
-        "beforeEach"
+        "beforeEach",
+        "afterEach",
+        "expect",
+        "spyOn",
+        "jasmine"
     ]
 }

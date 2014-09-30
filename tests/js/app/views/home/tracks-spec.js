@@ -1,5 +1,5 @@
-var requirejs = require('requirejs');
-require('../../../../init');
+var requirejs = require('../../../../specrunner-requirejs');
+require('../../../../specrunner-jquery');
 
 var Tracks = requirejs('app/views/home/tracks'),
     Vent = requirejs('app/views/home/vent'),

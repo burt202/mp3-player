@@ -1,5 +1,5 @@
-var requirejs = require('requirejs');
-require('../../../../init');
+var requirejs = require('../../../../specrunner-requirejs');
+require('../../../../specrunner-jquery');
 
 var Backbone = requirejs('backbone'),
 	StatusBar = requirejs('app/views/home/status-bar'),
