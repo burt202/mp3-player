@@ -1,4 +1,5 @@
 mp3s
 vendor
+bower_components
 node_modules
 public/build/combined*

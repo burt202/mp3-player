@@ -1,0 +1,15 @@
+{
+  "name": "mp3-player",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "backbone": "1.1.2",
+    "jquery": "2.1.0",
+    "marionette": "1.8.8",
+    "requirejs": "2.1.14",
+    "requirejs-text": "2.0.12",
+    "underscore": "1.6.0",
+    "rjs": "2.1.14",
+    "font-awesome": "4.2.0"
+  }
+}

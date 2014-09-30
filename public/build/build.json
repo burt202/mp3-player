@@ -1,25 +1,7 @@
 {
-    "baseUrl": "../js/libs",
-    "name": "../start",
+    "mainConfigFile": "../js/config.js",
+    "baseUrl": "../../bower_components",
+    "name": "../js/start",
     "out": "combined.js",
-    "findNestedDependencies": true,
-    "paths": {
-        "app": "../app",
-        "templates": "../../templates",
-        "mp3s": "empty:",
-        "config": "empty:"
-    },
-	"shim": {
-		"underscore": {
-			"exports": "_"
-		},
-		"backbone": {
-			"deps": ["underscore", "jquery"],
-			"exports": "Backbone"
-		},
-        "marionette": {
-            "deps": ["backbone"],
-            "exports": "Backbone.Marionette"
-        }
-	}
+    "wrapShim": true
 }

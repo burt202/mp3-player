@@ -6,14 +6,8 @@ use getID3;
 
 class Mp3MetaDataParser
 {
-	protected $config;
-	protected $twig;
-
-	public function __construct($config, $twig)
+	public function __construct()
 	{
-		$this->config = $config;
-		$this->twig = $twig;
-
 		$this->getID3 = new getID3();
 	}
 
