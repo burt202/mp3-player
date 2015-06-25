@@ -61,5 +61,5 @@ gulp.task('type-development', function() {
 });
 
 gulp.task('bundle-js', shell.task([
-    'node bower_components/rjs/dist/r.js -o public/build/build.json > public/build/build.js.log'
+    'node public/bower_components/rjs/dist/r.js -o public/build/build.json > public/build/build.js.log'
 ]));

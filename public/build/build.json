@@ -1,10 +1,10 @@
 {
-    "mainConfigFile": "../js/config.js",
-    "baseUrl": "../../bower_components",
-    "name": "../public/js/start",
-    "out": "combined.js",
-    "wrapShim": true,
-    "paths": {
-        "mp3s": "empty:"
-    }
+  "mainConfigFile": "../js/config.js",
+  "baseUrl": "../bower_components",
+  "name": "../js/start",
+  "out": "combined.js",
+  "wrapShim": true,
+  "paths": {
+    "mp3s": "empty:"
+  }
 }

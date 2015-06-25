@@ -1,9 +1,9 @@
 /* global requirejs */
 requirejs.config({
-    baseUrl: 'bower_components',
+    baseUrl: 'public/bower_components',
     paths: {
-        app: '../public/js/app',
-        templates: '../public/templates',
+        app: '../js/app',
+        templates: '../templates',
         backbone: 'backbone/backbone',
         marionette: 'marionette/lib/backbone.marionette',
         jquery: 'jquery/dist/jquery',
