@@ -1,4 +1,4 @@
-## MP3 Player
+## NodeJS MP3 Player
 
 A basic MP3 player that uses the HTML5 audio element, with custom controls, filtering, sorting and track info.
 
