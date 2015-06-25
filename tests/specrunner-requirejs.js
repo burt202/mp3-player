@@ -1,7 +1,6 @@
-'use strict';
-
 var requirejsConfig;
 
+/* jshint strict:false */
 /* global requirejs */
 /* jshint -W020 */
 requirejs = {
