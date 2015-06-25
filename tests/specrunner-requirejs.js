@@ -11,7 +11,7 @@ requirejs = {
 require('../public/js/config.js');
 requirejs = null;
 
-requirejsConfig.baseUrl = 'bower_components';
+requirejsConfig.baseUrl = 'public/bower_components';
 requirejsConfig.suppress = { nodeShim: true };
 requirejsConfig.nodeRequire = require;
 

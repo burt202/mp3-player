@@ -1,10 +1,13 @@
-var gulp = require('gulp'),
-	jshint = require('gulp-jshint'),
-	less = require('gulp-less'),
-	rename = require('gulp-rename'),
-	jeditor = require('gulp-json-editor'),
-	shell = require('gulp-shell'),
-	jasmine = require('gulp-jasmine');
+'use strict';
+
+var gulp = require('gulp');
+var jshint = require('gulp-jshint');
+var less = require('gulp-less');
+var rename = require('gulp-rename');
+var jeditor = require('gulp-json-editor');
+var shell = require('gulp-shell');
+var gulpJasmine = require('gulp-jasmine');
+var minifyCSS = require('gulp-minify-css');
 
 gulp.task('default', ['watch']);
 
@@ -13,53 +16,56 @@ gulp.task('watch', function () {
 });
 
 gulp.task('build', ['compile-less', 'bundle-js', 'type-production']);
-
 gulp.task('unbuild', ['type-development']);
 
 gulp.task('client-tests', function() {
-	gulp.src('tests/**')
-		.pipe(jasmine({
-			verbose: true
-		}));
+  return gulp.src('tests/**')
+    .pipe(gulpJasmine({
+      verbose: true
+    }));
 });
 
 gulp.task('jshint', function() {
-	gulp.src([
-			'public/js/**',
-			'tests/**'
-		])
-		.pipe(jshint('.jshintrc'))
-		.pipe(jshint.reporter('jshint-stylish'));
+  return gulp.src([
+      'public/js/**/*js',
+      'tests/**/*js'
+    ])
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('compile-less', function() {
-	gulp.src('public/css/imports.less')
-		.pipe(less({
-			paths: ['public/css/'],
-			compress: true
-		}))
-		.pipe(rename('combined.css'))
-		.pipe(gulp.dest('public/build/'));
+gulp.task('compile-less', function () {
+  return gulp.src('public/css/imports.less')
+    .pipe(less({
+      paths: ['public/css/']
+    }))
+    .pipe(rename('combined.css'))
+    .pipe(gulp.dest('public/build/'))
+    .pipe(minifyCSS())
+    .pipe(rename('combined.min.css'))
+    .pipe(gulp.dest('public/build/'));
 });
 
-gulp.task('type-production', function() {
-	gulp.src('configs/app.json')
-		.pipe(jeditor(function(json) {
-			json.type = 'production';
-			return json;
-		}))
-		.pipe(gulp.dest('configs/'));
+gulp.task('type-production', function () {
+  return gulp.src('configs/app.json')
+    .pipe(jeditor({
+      type: 'production'
+    }, {
+      'indent_size': 2
+    }))
+    .pipe(gulp.dest('configs/'));
 });
 
-gulp.task('type-development', function() {
-	gulp.src('configs/app.json')
-		.pipe(jeditor(function(json) {
-			json.type = 'development';
-			return json;
-		}))
-		.pipe(gulp.dest('configs/'));
+gulp.task('type-development', function () {
+  return gulp.src('configs/app.json')
+    .pipe(jeditor({
+        type: 'development'
+      }, {
+        'indent_size': 2
+      }))
+    .pipe(gulp.dest('configs/'));
 });
 
 gulp.task('bundle-js', shell.task([
-    'node public/bower_components/rjs/dist/r.js -o public/build/build.json > public/build/build.js.log'
+  'node public/bower_components/rjs/dist/r.js -o public/build/build.json > public/build/build.js.log'
 ]));
