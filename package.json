@@ -16,5 +16,10 @@
     "jsdom": "0.11.1",
     "jshint-stylish": "0.4.0",
     "requirejs": "2.1.14"
+  },
+  "dependencies": {
+    "body-parser": "1.13.1",
+    "express": "4.13.0",
+    "swig": "1.4.2"
   }
 }

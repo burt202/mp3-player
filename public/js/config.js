@@ -1,6 +1,6 @@
 /* global requirejs */
 requirejs.config({
-    baseUrl: 'public/bower_components',
+    baseUrl: 'bower_components',
     paths: {
         app: '../js/app',
         templates: '../templates',
