@@ -1,3 +1,5 @@
+'use strict';
+
 var requirejs = require('../../../../specrunner-requirejs');
 require('../../../../specrunner-jquery');
 

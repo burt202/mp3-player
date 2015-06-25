@@ -1,3 +1,5 @@
+'use strict';
+
 define([
 	'app/app',
 	'app/views/home/main'

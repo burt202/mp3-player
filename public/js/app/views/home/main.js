@@ -1,3 +1,5 @@
+'use strict';
+
 define([
     'app/views/home/content'
 ], function (HomeContView) {
