@@ -1,5 +1,5 @@
-mp3s
 node_modules
 public/bower_components
 public/build/combined*
 public/build/build.js.log
+public/mp3s
